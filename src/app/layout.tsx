@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto_Mono({
+  subsets: ["latin"],
+  weight: ["200", "400", "500", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Streamify - APP",
   description: "Streamify - APP",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +31,7 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <body className={inter.className}>
+        <body className={roboto.className}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
