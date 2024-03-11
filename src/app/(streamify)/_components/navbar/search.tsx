@@ -35,13 +35,13 @@ export function Search() {
   return (
     <form
       onSubmit={onSubmit}
-      className="relative w-full lg:w-[480px] flex items-center"
+      className="relative w-full lg:w-[480px] flex items-center bg-background rounded-lg"
     >
       <Input
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search"
-        className="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
+        className="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 border-none max-w-[220px] md:max-w-[540px] lg:max-w-[400px]"
       />
       {value && (
         <X
