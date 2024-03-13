@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
-import { getSelf } from "./auth-services";
 
-export const getRecommended = async () => {
+import { getSelf } from "@/services/auth-services";
+
+export async function getRecommended() {
   let userId: string | null;
 
   try {
@@ -32,4 +33,4 @@ export const getRecommended = async () => {
   }
 
   return users;
-};
+}

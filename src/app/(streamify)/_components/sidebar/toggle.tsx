@@ -38,11 +38,11 @@ export function Toggle() {
   );
 }
 
-export const ToggleSkeleton = () => {
+export function ToggleSkeleton() {
   return (
     <div className="hidden lg:flex items-center justify-between p-4 w-full">
       <Skeleton className="h-6 w-28" />
       <Skeleton className="h-6 w-6" />
     </div>
   );
-};
+}

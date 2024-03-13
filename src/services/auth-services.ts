@@ -1,12 +1,13 @@
+import { NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs";
 
 import { db } from "@/lib/db";
 
-export const getSelf = async () => {
+export async function getSelf() {
   const self = await currentUser();
 
   if (!self || !self.username) {
-    throw new Error("Unauthorized");
+    throw NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const user = await db.user.findUnique({
@@ -14,8 +15,30 @@ export const getSelf = async () => {
   });
 
   if (!user) {
-    throw new Error("Not found");
+    throw NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
   return user;
-};
+}
+
+export async function getSelfByUsername(username: string) {
+  const self = await currentUser();
+
+  if (!self || !self.username) {
+    throw NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const user = await db.user.findUnique({
+    where: { username },
+  });
+
+  if (!user) {
+    throw NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  if (self.username !== user.username) {
+    throw NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  return user;
+}

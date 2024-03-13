@@ -17,7 +17,7 @@ interface UserItemProps {
   isLive?: boolean;
 }
 
-export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
+export function UserItem({ username, imageUrl, isLive }: UserItemProps) {
   const pathname = usePathname();
 
   const { collapsed } = useSidebar((state) => state);
@@ -52,9 +52,9 @@ export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
       </div>
     </Link>
   );
-};
+}
 
-export const UserItemSkeleton = () => {
+export function UserItemSkeleton() {
   return (
     <li className="flex items-center justify-center gap-x-4">
       <Skeleton className="h-10 w-10 rounded-full" />
@@ -63,4 +63,4 @@ export const UserItemSkeleton = () => {
       </div>
     </li>
   );
-};
+}
