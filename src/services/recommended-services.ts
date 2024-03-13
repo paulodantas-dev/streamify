@@ -7,6 +7,7 @@ export async function getRecommended() {
 
   try {
     const self = await getSelf();
+
     userId = self.id;
   } catch {
     userId = null;

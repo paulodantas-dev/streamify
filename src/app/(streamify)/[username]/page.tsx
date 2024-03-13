@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Actions } from "./actions";
+import { Actions } from "./_components/actions";
 import { isFollowingUser } from "@/services/follow-services";
 import { isBannedByUser } from "@/services/ban-services";
 import { getUserByUsername } from "@/services/user-services";
@@ -12,7 +12,7 @@ interface UserPageProps {
 
 export default async function UserPage({ params }: UserPageProps) {
   const user = await getUserByUsername(params.username);
-  console.log(user, "---------");
+
   if (!user || !user.stream) {
     notFound();
   }

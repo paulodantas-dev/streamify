@@ -70,13 +70,13 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
   };
 
   return (
-    <>
+    <div className="h-full flex items-center justify-center">
       <Button disabled={isPending} onClick={onClick} variant="default">
         {isFollowing ? "Unfollow" : "Follow"}
       </Button>
       <Button onClick={handleBlock} disabled={isPending}>
         Block
       </Button>
-    </>
+    </div>
   );
 }
