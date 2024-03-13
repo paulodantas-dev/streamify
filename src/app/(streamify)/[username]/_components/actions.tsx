@@ -5,7 +5,7 @@ import { useTransition } from "react";
 import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { onUnban } from "@/actions/ban";
+import { onBan, onUnban } from "@/actions/ban";
 
 interface ActionsProps {
   isFollowing: boolean;
@@ -46,7 +46,7 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
     });
   };
 
-  const onClick = () => {
+  const onClickFollow = () => {
     if (isFollowing) {
       handleUnfollow();
     } else {
@@ -54,13 +54,28 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
     }
   };
 
-  const handleBlock = () => {
+  const handleBan = () => {
+    startTransition(() => {
+      onBan(userId)
+        .then((data) =>
+          toast({
+            variant: "success",
+            description: `Ban the user ${data?.banished.username}`,
+          })
+        )
+        .catch(() =>
+          toast({ variant: "destructive", description: "Something went wrong" })
+        );
+    });
+  };
+
+  const handleUnban = () => {
     startTransition(() => {
       onUnban(userId)
         .then((data) =>
           toast({
             variant: "success",
-            description: `Unblocked the user ${data.banished.username}`,
+            description: `Unban the user ${data.banished.username}`,
           })
         )
         .catch(() =>
@@ -71,11 +86,11 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
 
   return (
     <div className="h-full flex items-center justify-center">
-      <Button disabled={isPending} onClick={onClick} variant="default">
+      <Button disabled={isPending} onClick={onClickFollow} variant="default">
         {isFollowing ? "Unfollow" : "Follow"}
       </Button>
-      <Button onClick={handleBlock} disabled={isPending}>
-        Block
+      <Button onClick={handleUnban} disabled={isPending}>
+        asdasd
       </Button>
     </div>
   );

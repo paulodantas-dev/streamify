@@ -35,9 +35,9 @@ export async function getRecommended() {
           },
           {
             NOT: {
-              banished: {
+              banishedBy: {
                 some: {
-                  banishedId: userId,
+                  banisherId: userId,
                 },
               },
             },
