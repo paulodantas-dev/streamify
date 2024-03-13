@@ -5,6 +5,7 @@ import { dark } from "@clerk/themes";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const roboto = Roboto_Mono({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>

@@ -58,7 +58,7 @@ export async function isFollowingUser(id: string) {
     });
 
     if (!otherUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      throw NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     if (otherUser.id === self.id) {
@@ -78,7 +78,7 @@ export async function isFollowingUser(id: string) {
   }
 }
 
-export const followUser = async (id: string) => {
+export async function followUser(id: string) {
   const self = await getSelf();
 
   const otherUser = await db.user.findUnique({
@@ -86,11 +86,14 @@ export const followUser = async (id: string) => {
   });
 
   if (!otherUser) {
-    throw new Error("User not found");
+    throw NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
   if (otherUser.id === self.id) {
-    throw new Error("Cannot follow yourself");
+    throw NextResponse.json(
+      { error: "Cannot follow yourself" },
+      { status: 400 }
+    );
   }
 
   const existingFollow = await db.follow.findFirst({
@@ -101,7 +104,7 @@ export const followUser = async (id: string) => {
   });
 
   if (existingFollow) {
-    throw new Error("Already following");
+    throw NextResponse.json({ error: "Already following" }, { status: 400 });
   }
 
   const follow = await db.follow.create({
@@ -116,7 +119,7 @@ export const followUser = async (id: string) => {
   });
 
   return follow;
-};
+}
 
 export const unfollowUser = async (id: string) => {
   const self = await getSelf();
@@ -128,11 +131,14 @@ export const unfollowUser = async (id: string) => {
   });
 
   if (!otherUser) {
-    throw new Error("User not found");
+    throw NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
   if (otherUser.id === self.id) {
-    throw new Error("Cannot unfollow yourself");
+    throw NextResponse.json(
+      { error: "Cannot unfollow yourself" },
+      { status: 400 }
+    );
   }
 
   const existingFollow = await db.follow.findFirst({
@@ -143,7 +149,7 @@ export const unfollowUser = async (id: string) => {
   });
 
   if (!existingFollow) {
-    throw new Error("Not following");
+    throw NextResponse.json({ error: "Not following" }, { status: 400 });
   }
 
   const follow = await db.follow.delete({
