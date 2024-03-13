@@ -11,7 +11,7 @@ export async function getFollowedUsers() {
       where: {
         followerId: self.id,
         following: {
-          banish: {
+          banished: {
             none: {
               banisherId: self.id,
             },

@@ -14,7 +14,7 @@ interface FollowingProps {
   })[];
 }
 
-export const Following = ({ data }: FollowingProps) => {
+export function Following({ data }: FollowingProps) {
   const { collapsed } = useSidebar((state) => state);
 
   if (!data.length) {
@@ -22,13 +22,13 @@ export const Following = ({ data }: FollowingProps) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {!collapsed && (
-        <div className="pl-6 mb-4">
+        <div>
           <p className="text-sm text-muted-foreground">Following</p>
         </div>
       )}
-      <ul className="space-y-2 px-2">
+      <ul className="flex flex-col gap-2">
         {data.map((follow) => (
           <UserItem
             key={follow.following.id}
@@ -40,11 +40,11 @@ export const Following = ({ data }: FollowingProps) => {
       </ul>
     </div>
   );
-};
+}
 
 export function FollowingSkeleton() {
   return (
-    <ul className="px-2 pt-2 lg:pt-0">
+    <ul className="flex flex-col gap-2">
       {[...Array(5)].map((_, i) => (
         <UserItemSkeleton key={i} />
       ))}

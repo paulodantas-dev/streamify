@@ -18,7 +18,7 @@ export function Recommended({ data }: RecommendedProps) {
   return (
     <div className="flex flex-col gap-2">
       {showLabel && (
-        <div className="">
+        <div>
           <p className="text-sm text-muted-foreground">Recommended</p>
         </div>
       )}

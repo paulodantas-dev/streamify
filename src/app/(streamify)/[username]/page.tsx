@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Actions } from "./_components/actions";
 import { isFollowingUser } from "@/services/follow-services";
-import { isBannedByUser } from "@/services/ban-services";
+import { isBanishedByUser } from "@/services/ban-services";
 import { getUserByUsername } from "@/services/user-services";
 
 interface UserPageProps {
@@ -18,9 +18,9 @@ export default async function UserPage({ params }: UserPageProps) {
   }
 
   const isFollowing = await isFollowingUser(user.id);
-  const isBanned = await isBannedByUser(user.id);
+  const isBanished = await isBanishedByUser(user.id);
 
-  if (isBanned) {
+  if (isBanished) {
     notFound();
   }
 

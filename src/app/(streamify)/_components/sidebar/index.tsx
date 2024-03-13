@@ -13,7 +13,7 @@ export async function Sidebar() {
   return (
     <Wrapper>
       <Toggle />
-      <div className="p-4">
+      <div className="p-4 flex flex-col gap-4">
         <Following data={following} />
         <Recommended data={recommended} />
       </div>
@@ -23,7 +23,7 @@ export async function Sidebar() {
 
 export function SidebarSkeleton() {
   return (
-    <aside className="fixed left-0 flex flex-col gap-2 w-24 lg:w-72 h-full bg-background border-r border-gray-600 z-10">
+    <aside className="fixed left-0 flex flex-col gap-2 w-24 lg:w-72 h-full bg-gray-800 border-r border-gray-600 z-10">
       <ToggleSkeleton />
       <FollowingSkeleton />
       <RecommendedSkeleton />

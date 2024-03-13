@@ -60,7 +60,7 @@ export function Actions({ isFollowing, userId }: ActionsProps) {
         .then((data) =>
           toast({
             variant: "success",
-            description: `Unblocked the user ${data.banned.username}`,
+            description: `Unblocked the user ${data.banished.username}`,
           })
         )
         .catch(() =>

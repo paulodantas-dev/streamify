@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getSelf } from "@/services/auth-services";
 
-export async function isBannedByUser(id: string) {
+export async function isBanishedByUser(id: string) {
   try {
     const self = await getSelf();
 
@@ -21,9 +21,9 @@ export async function isBannedByUser(id: string) {
 
     const existingBan = await db.ban.findUnique({
       where: {
-        banisherId_bannedId: {
+        banisherId_banishedId: {
           banisherId: otherUser.id,
-          bannedId: self.id,
+          banishedId: self.id,
         },
       },
     });
@@ -51,24 +51,24 @@ export async function banUser(id: string) {
 
   const existingBan = await db.ban.findUnique({
     where: {
-      banisherId_bannedId: {
+      banisherId_banishedId: {
         banisherId: self.id,
-        bannedId: otherUser.id,
+        banishedId: otherUser.id,
       },
     },
   });
 
   if (existingBan) {
-    throw NextResponse.json({ error: "Already banned" }, { status: 400 });
+    throw NextResponse.json({ error: "Already banished" }, { status: 400 });
   }
 
   const ban = await db.ban.create({
     data: {
       banisherId: self.id,
-      bannedId: otherUser.id,
+      banishedId: otherUser.id,
     },
     include: {
-      banned: true,
+      banished: true,
     },
   });
 
@@ -95,15 +95,15 @@ export async function unbanUser(id: string) {
 
   const existingBan = await db.ban.findUnique({
     where: {
-      banisherId_bannedId: {
+      banisherId_banishedId: {
         banisherId: self.id,
-        bannedId: otherUser.id,
+        banishedId: otherUser.id,
       },
     },
   });
 
   if (!existingBan) {
-    throw NextResponse.json({ error: "Not banned" }, { status: 400 });
+    throw NextResponse.json({ error: "Not banished" }, { status: 400 });
   }
 
   const unban = await db.ban.delete({
@@ -111,24 +111,24 @@ export async function unbanUser(id: string) {
       id: existingBan.id,
     },
     include: {
-      banned: true,
+      banished: true,
     },
   });
 
   return unban;
 }
 
-export async function getBannedUsers() {
+export async function getBanishedUsers() {
   const self = await getSelf();
 
-  const bannedUsers = await db.ban.findMany({
+  const banishedUsers = await db.ban.findMany({
     where: {
       banisherId: self.id,
     },
     include: {
-      banned: true,
+      banished: true,
     },
   });
 
-  return bannedUsers;
+  return banishedUsers;
 }

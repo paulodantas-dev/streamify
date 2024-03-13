@@ -14,10 +14,10 @@ import { banUser, unbanUser } from "@/services/ban-services";
 export async function onBan(id: string) {
   const self = await getSelf();
 
-  let bannedUser;
+  let banishedUser;
 
   try {
-    bannedUser = await banUser(id);
+    banishedUser = await banUser(id);
   } catch {
     // This means user is a guest
   }
@@ -30,13 +30,13 @@ export async function onBan(id: string) {
 
   revalidatePath(`/u/${self.username}/community`);
 
-  return bannedUser;
+  return banishedUser;
 }
 
 export async function onUnban(id: string) {
   const self = await getSelf();
-  const unbannedUser = await unbanUser(id);
+  const unbanishedUser = await unbanUser(id);
 
   revalidatePath(`/u/${self.username}/community`);
-  return unbannedUser;
+  return unbanishedUser;
 }

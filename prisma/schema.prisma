@@ -1,6 +1,7 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 generator client {
@@ -17,8 +18,8 @@ model User {
   following  Follow[] @relation("Following")
   followedBy Follow[] @relation("FollowedBy")
 
-  banish   Ban[] @relation("Banish")
-  bannedBy Ban[] @relation("BannedBy")
+  banished   Ban[] @relation("Banished")
+  banishedBy Ban[] @relation("BanishedBy")
 
   stream Stream?
 
@@ -69,12 +70,13 @@ model Follow {
 model Ban {
   id         String @id @default(uuid())
   banisherId String
-  bannedId   String
+  banishedId String
 
-  banisher User @relation(name: "Banish", fields: [banisherId], references: [id], onDelete: Cascade)
-  banned   User @relation(name: "BannedBy", fields: [bannedId], references: [id], onDelete: Cascade)
+  banisher User    @relation(name: "Banished", fields: [banisherId], references: [id], onDelete: Cascade)
+  banished User    @relation(name: "BanishedBy", fields: [banishedId], references: [id], onDelete: Cascade)
+  userId   String?
 
-  @@unique([banisherId, bannedId])
+  @@unique([banisherId, banishedId])
   @@index([banisherId])
-  @@index([bannedId])
+  @@index([banishedId])
 }
