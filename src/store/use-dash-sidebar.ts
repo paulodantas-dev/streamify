@@ -7,7 +7,13 @@ interface DashSidebarStore {
 }
 
 export const useDashSidebar = create<DashSidebarStore>((set) => ({
-  collapsed: false,
-  onExpand: () => set(() => ({ collapsed: false })),
-  onCollapse: () => set(() => ({ collapsed: true })),
+  collapsed: true,
+  onExpand: () =>
+    set(() => {
+      return { collapsed: false };
+    }),
+  onCollapse: () =>
+    set(() => {
+      return { collapsed: true };
+    }),
 }));

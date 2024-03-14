@@ -42,10 +42,10 @@ export const NavItem = ({
 
 export const NavItemSkeleton = () => {
   return (
-    <li className="flex items-center gap-x-4 p-2">
+    <li className="flex items-center justify-center lg:justify-start gap-x-4 p-2">
       <Skeleton className="h-8 w-8 rounded-md" />
       <div className="flex-1 hidden lg:block">
-        <Skeleton className="h-6" />
+        <Skeleton className="h-6 w-full" />
       </div>
     </li>
   );
