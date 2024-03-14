@@ -4,7 +4,7 @@ interface LiveBadgeProps {
   className?: string;
 }
 
-export const LiveBadge = ({ className }: LiveBadgeProps) => {
+export function LiveBadge({ className }: LiveBadgeProps) {
   return (
     <div
       className={cn(
@@ -15,4 +15,4 @@ export const LiveBadge = ({ className }: LiveBadgeProps) => {
       Live
     </div>
   );
-};
+}

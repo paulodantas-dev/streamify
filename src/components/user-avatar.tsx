@@ -24,13 +24,13 @@ interface UserAvatarProps extends VariantProps<typeof avatarSizes> {
   showBadge?: boolean;
 }
 
-export const UserAvatar = ({
+export function UserAvatar({
   username,
   imageUrl,
   isLive,
   showBadge,
   size,
-}: UserAvatarProps) => {
+}: UserAvatarProps) {
   const canShowBadge = showBadge && isLive;
 
   return (
@@ -54,7 +54,7 @@ export const UserAvatar = ({
       )}
     </div>
   );
-};
+}
 
 interface UserAvatarSkeletonProps extends VariantProps<typeof avatarSizes> {}
 

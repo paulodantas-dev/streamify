@@ -21,7 +21,7 @@ export async function onFollow(id: string) {
   }
 }
 
-export const onUnfollow = async (id: string) => {
+export async function onUnfollow(id: string) {
   try {
     const unfollowedUser = await unfollowUser(id);
 
@@ -35,4 +35,4 @@ export const onUnfollow = async (id: string) => {
   } catch (error) {
     throw NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
-};
+}

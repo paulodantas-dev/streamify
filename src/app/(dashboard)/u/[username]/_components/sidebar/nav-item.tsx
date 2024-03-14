@@ -15,12 +15,7 @@ interface NavItemProps {
   isActive: boolean;
 }
 
-export const NavItem = ({
-  icon: Icon,
-  label,
-  href,
-  isActive,
-}: NavItemProps) => {
+export function NavItem({ icon: Icon, label, href, isActive }: NavItemProps) {
   const collapsed = useDashSidebar((state) => state.collapsed);
 
   return (
@@ -38,7 +33,7 @@ export const NavItem = ({
       </div>
     </Link>
   );
-};
+}
 
 export const NavItemSkeleton = () => {
   return (
