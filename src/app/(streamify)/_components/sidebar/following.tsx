@@ -44,7 +44,7 @@ export function Following({ data }: FollowingProps) {
 
 export function FollowingSkeleton() {
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="p-4 flex flex-col gap-2">
       {[...Array(5)].map((_, i) => (
         <UserItemSkeleton key={i} />
       ))}
