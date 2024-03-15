@@ -20,8 +20,9 @@ export const useViewerToken = (hostIdentity: string) => {
         const decodedToken = jwtDecode(viewerToken) as JwtPayload & {
           name?: string;
         };
+
         const name = decodedToken?.name;
-        const identity = decodedToken.jti;
+        const identity = decodedToken.iss;
 
         if (name) {
           setName(name);
@@ -40,6 +41,12 @@ export const useViewerToken = (hostIdentity: string) => {
 
     createToken();
   }, [hostIdentity, toast]);
+
+  console.log({
+    token,
+    name,
+    identity,
+  });
 
   return {
     token,
