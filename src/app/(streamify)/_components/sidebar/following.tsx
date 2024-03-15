@@ -5,6 +5,7 @@ import { Follow, User } from "@prisma/client";
 import { useSidebar } from "@/store/use-sidebar";
 
 import { UserItem, UserItemSkeleton } from "./user-item";
+import { Heart } from "lucide-react";
 
 interface FollowingProps {
   data: (Follow & {
@@ -23,9 +24,13 @@ export function Following({ data }: FollowingProps) {
 
   return (
     <div className="flex flex-col gap-2">
-      {!collapsed && (
+      {!collapsed ? (
         <div>
           <p className="text-sm text-muted-foreground">Following</p>
+        </div>
+      ) : (
+        <div className="w-full flex items-center justify-center">
+          <Heart className="h-6 w-6" />
         </div>
       )}
       <ul className="flex flex-col gap-2">
@@ -34,7 +39,7 @@ export function Following({ data }: FollowingProps) {
             key={follow.following.id}
             username={follow.following.username}
             imageUrl={follow.following.imageUrl}
-            isLive={true}
+            isLive={follow.following.stream?.isLive}
           />
         ))}
       </ul>

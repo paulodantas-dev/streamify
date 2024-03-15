@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, useRef, ElementRef } from "react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Loader2 } from "lucide-react";
 import { IngressInput } from "livekit-server-sdk";
 
 import { createIngress } from "@/actions/ingress";
@@ -44,7 +44,6 @@ export function ConnectModal() {
           closeRef?.current?.click();
         })
         .catch((error) => {
-          console.log({ error });
           toast({
             variant: "destructive",
             description: "Failed to create ingress",
@@ -87,8 +86,13 @@ export function ConnectModal() {
           <DialogClose ref={closeRef} asChild>
             <Button variant="ghost">Cancel</Button>
           </DialogClose>
-          <Button disabled={isPending} onClick={onSubmit} variant="default">
-            Generate
+          <Button
+            disabled={isPending}
+            onClick={onSubmit}
+            variant="default"
+            className="min-w-[100px]"
+          >
+            {isPending ? <Loader2 className="animate-spin " /> : "Generate"}
           </Button>
         </div>
       </DialogContent>

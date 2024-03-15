@@ -1,9 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getUserById } from "@/services/user-services";
+import { getSelf } from "@/services/auth-services";
 
-export function Logo() {
+interface LogoProps {
+  username: string;
+}
+
+export async function Logo({ username }: LogoProps) {
   return (
-    <Link href="/">
+    <Link href={`/u/${username}`}>
       <div className="flex items-center gap-x-4 hover:opacity-75 transition-opacity">
         <div className="relative rounded-full">
           <Image src="/logo.svg" alt="streamify logo" height="32" width="32" />
