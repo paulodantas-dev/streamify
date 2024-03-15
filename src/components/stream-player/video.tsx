@@ -23,14 +23,11 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
   const tracks = useTracks([
     Track.Source.Camera,
     Track.Source.Microphone,
-  ]).filter((track) => track.participant.identity === hostIdentity);
+  ]).filter((track) => {
+    return track.participant.identity === hostIdentity;
+  });
 
   let content;
-
-  console.log("connectionState1", connectionState);
-  console.log("participant1", participant);
-  console.log("tracks1", tracks);
-  console.log("hostIdentity1", hostIdentity);
 
   if (connectionState === ConnectionState.Disconnected) {
     content = <OfflineVideo username={hostName} />;
@@ -43,11 +40,6 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
   } else {
     content = <LiveVideo participant={participant} />;
   }
-
-  console.log("connectionState2", connectionState);
-  console.log("participant2", participant);
-  console.log("tracks2", tracks);
-  console.log("hostIdentity2", hostIdentity);
 
   return <div className="aspect-video border-b group relative">{content}</div>;
 };
