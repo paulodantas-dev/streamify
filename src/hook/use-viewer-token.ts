@@ -19,10 +19,16 @@ export const useViewerToken = (hostIdentity: string) => {
 
         const decodedToken = jwtDecode(viewerToken) as JwtPayload & {
           name?: string;
+          video?: {
+            room: string;
+            roomJoin: boolean;
+            canPublish: boolean;
+            canPublishData: boolean;
+          };
         };
 
         const name = decodedToken?.name;
-        const identity = decodedToken.iss;
+        const identity = decodedToken.video?.room;
 
         if (name) {
           setName(name);
@@ -41,12 +47,6 @@ export const useViewerToken = (hostIdentity: string) => {
 
     createToken();
   }, [hostIdentity, toast]);
-
-  console.log({
-    token,
-    name,
-    identity,
-  });
 
   return {
     token,
