@@ -27,15 +27,24 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
     return track.participant.identity === hostIdentity;
   });
 
+  console.log({ connectionState, participant, tracks });
+
   let content;
 
-  if (!participant && connectionState === ConnectionState.Connected) {
+  if (connectionState === ConnectionState.Disconnected) {
     content = <OfflineVideo username={hostName} />;
-  } else if (!participant || tracks.length === 0) {
+  } else if (
+    !participant ||
+    tracks.length === 0 ||
+    connectionState === ConnectionState.Connecting ||
+    connectionState === ConnectionState.Reconnecting
+  ) {
     content = <LoadingVideo label={connectionState} />;
   } else {
     content = <LiveVideo participant={participant} />;
   }
+
+  console.log({ connectionState, participant, tracks, content });
 
   return <div className="aspect-video border-b group relative">{content}</div>;
 };
