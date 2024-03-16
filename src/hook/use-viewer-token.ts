@@ -4,7 +4,7 @@ import { JwtPayload, jwtDecode } from "jwt-decode";
 import { createViewerToken } from "@/actions/token";
 import { useToast } from "@/components/ui/use-toast";
 
-export const useViewerToken = (hostIdentity: string) => {
+export function useViewerToken(hostIdentity: string) {
   const [token, setToken] = useState("");
   const [name, setName] = useState("");
   const [identity, setIdentity] = useState("");
@@ -53,4 +53,4 @@ export const useViewerToken = (hostIdentity: string) => {
     name,
     identity,
   };
-};
+}
