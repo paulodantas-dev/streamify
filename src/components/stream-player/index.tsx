@@ -38,6 +38,8 @@ export function StreamPlayer({ user, stream, isFollowing }: StreamPlayerProps) {
     return <StreamPlayerSkeleton />;
   }
 
+  console.log({ token, name, identity }, "StreamPlayer");
+
   return (
     <>
       {/* {collapsed && (

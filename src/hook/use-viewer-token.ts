@@ -26,7 +26,7 @@ export function useViewerToken(hostIdentity: string) {
             canPublishData: boolean;
           };
         };
-
+        console.log({ decodedToken }, "decodedToken");
         const name = decodedToken?.name;
         const identity = decodedToken.video?.room;
 
@@ -47,6 +47,8 @@ export function useViewerToken(hostIdentity: string) {
 
     createToken();
   }, [hostIdentity, toast]);
+
+  console.log({ token, name, identity }, "useViewerToken");
 
   return {
     token,

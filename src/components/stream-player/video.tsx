@@ -27,7 +27,7 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
     return track.participant.identity === hostIdentity;
   });
 
-  console.log({ connectionState, participant, tracks });
+  console.log({ connectionState, participant, tracks }, "Video");
 
   let content;
 
@@ -44,7 +44,7 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
     content = <LiveVideo participant={participant} />;
   }
 
-  console.log({ connectionState, participant, tracks, content });
+  console.log({ connectionState, participant, tracks, content }, "Video");
 
   return <div className="aspect-video border-b group relative">{content}</div>;
 };
